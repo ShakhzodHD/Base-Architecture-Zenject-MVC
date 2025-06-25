@@ -6,7 +6,7 @@ namespace Assets.Editor
 {
     public class DomainReloadButton : EditorWindow
     {
-        [MenuItem("Window/Domain Reload Tool")]
+        [MenuItem("Tools/LordGames/Domain Reload Tool")]
         public static void ShowWindow()
         {
             GetWindow<DomainReloadButton>("Domain Reload");

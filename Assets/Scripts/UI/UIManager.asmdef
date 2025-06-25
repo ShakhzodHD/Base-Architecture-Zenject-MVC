@@ -1,8 +1,9 @@
 {
-    "name": "Input",
+    "name": "UIManager",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:d1c08fd037407eb438d82fd92a2e8253"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

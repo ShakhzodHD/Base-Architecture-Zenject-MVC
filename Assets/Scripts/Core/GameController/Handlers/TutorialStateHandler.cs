@@ -15,6 +15,8 @@ namespace Core
         public void Enter()
         {
             Debug.Log("Tutorial Started");
+
+            _signalBus.Fire(new GameEventSignal(GameEvent.TutorialCompleted));
         }
 
         public void Exit()

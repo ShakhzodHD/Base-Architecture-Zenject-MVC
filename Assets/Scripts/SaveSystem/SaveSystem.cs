@@ -29,5 +29,12 @@ namespace SaveSystem
         {
             return PlayerPrefs.GetInt(LEVEL_PROGRESS_KEY, 0);
         }
+
+        public void ResetAllSaves()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            Debug.Log("Все данные PlayerPrefs очищены.");
+        }
     }
 }
