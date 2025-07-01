@@ -1,3 +1,4 @@
+using ScenesService;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +7,8 @@ namespace Core
     public class TutorialStateHandler : IGameStateHandler
     {
         private readonly SignalBus _signalBus;
+        [Inject] private readonly IScenesService _scenesService;
+        [Inject] private readonly IUIManager _uiManager;
 
         public TutorialStateHandler(SignalBus signalBus)
         {
@@ -16,20 +19,33 @@ namespace Core
         {
             Debug.Log("Tutorial Started");
 
-            _signalBus.Fire(new GameEventSignal(GameEvent.TutorialCompleted));
+            CompleteTutorial();
         }
 
         public void Exit()
         {
+            _uiManager.HideView<ILoadingScreenView>();
+
             Debug.Log("Tutorial Completed");
         }
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            //_signalBus.Fire(new GameEventSignal(GameEvent.TutorialCompleted));
+
+            if (Input.GetKey(KeyCode.Alpha1))
             {
-                _signalBus.Fire(new GameEventSignal(GameEvent.TutorialCompleted));
+                CompleteTutorial();
             }
+        }
+
+        public void CompleteTutorial()
+        {
+            _uiManager.ShowView<ILoadingScreenView>();
+
+            _signalBus.Fire(new GameEventSignal(GameEvent.ReturnToMenu));
+
+            _scenesService.LoadSceneAsync(Constants.MENU_SCENE_NAME);
         }
     }
 }

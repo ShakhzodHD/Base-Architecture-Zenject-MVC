@@ -9,11 +9,12 @@ namespace UIManager
     {
         [Header("UI Prefabs")]
         [SerializeField] private MainMenuView mainMenuViewPrefab;
-        //[SerializeField] private LevelSelectView levelSelectViewPrefab;
-        // ... другие UI префабы
+        [SerializeField] private LoadingScreenView loadingScreenViewPrefab;
 
         public override void InstallBindings()
         {
+            Debug.Log("UI Install");
+
             Container.Bind<IUIManager>().To<UIManager>().AsSingle();
 
             InstallUIViews();
@@ -28,10 +29,10 @@ namespace UIManager
             Container.Bind<IMainMenuView>().FromInstance(mainMenuView);
             views.Add(mainMenuView);
 
-            //// Level Select View
-            //var levelSelectView = Container.InstantiatePrefabForComponent<LevelSelectView>(levelSelectViewPrefab);
-            //Container.Bind<LevelSelectView>().FromInstance(levelSelectView);
-            //views.Add(levelSelectView);
+            var loadingScreenView = Container.InstantiatePrefabForComponent<LoadingScreenView>(loadingScreenViewPrefab);
+            Container.Bind<LoadingScreenView>().FromInstance(loadingScreenView);
+            Container.Bind<IUIView>().FromInstance(loadingScreenView);
+            views.Add(loadingScreenView);
 
             Container.Bind<List<IUIView>>().FromInstance(views);
         }

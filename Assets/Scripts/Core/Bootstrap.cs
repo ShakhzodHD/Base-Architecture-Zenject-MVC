@@ -6,6 +6,19 @@ namespace Core
     public class Bootstrap : MonoBehaviour
     {
         [Inject] private readonly IGameController _gameController;
+        private static Bootstrap _instance;
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -15,7 +28,7 @@ namespace Core
 
         private void Update()
         {
-            Debug.Log("Current State: " + _gameController.CurrentState);
+            //Debug.Log("Current State: " + _gameController.CurrentState);
         }
     }
 }

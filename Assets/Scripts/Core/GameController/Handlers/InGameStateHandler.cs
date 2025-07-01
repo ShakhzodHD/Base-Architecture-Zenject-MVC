@@ -25,10 +25,10 @@ namespace Core
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                _signalBus.Fire(new GameEventSignal(GameEvent.ReturnToMenu));
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    _signalBus.Fire(new GameEventSignal(GameEvent.ReturnToMenu));
+            //}
         }
     }
 }

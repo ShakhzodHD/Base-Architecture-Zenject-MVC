@@ -18,21 +18,13 @@ namespace Core
         {
             Debug.Log("Main Menu Opened");
             _uiManager.ShowView<IMainMenuView>();
-            // Показываем главное меню UI
         }
 
         public void Exit()
         {
             _uiManager.HideView<IMainMenuView>();
-            // Скрываем главное меню UI
         }
 
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                _signalBus.Fire(new GameStateChangeSignal(GameState.LevelSelect));
-            }
-        }
+        public void Update() { }
     }
 }

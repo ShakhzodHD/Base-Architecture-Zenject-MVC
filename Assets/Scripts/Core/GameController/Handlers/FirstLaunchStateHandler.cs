@@ -1,4 +1,4 @@
-using DG.Tweening;
+using ScenesService;
 using UnityEngine;
 using Zenject;
 
@@ -7,19 +7,33 @@ namespace Core
     public class FirstLaunchStateHandler : IGameStateHandler
     {
         private readonly SignalBus _signalBus;
+        private readonly IUIManager _uiManager;
+        [Inject] private readonly IScenesService _scenesService;
 
-        public FirstLaunchStateHandler(SignalBus signalBus)
+        public FirstLaunchStateHandler(SignalBus signalBus, IUIManager uiManager)
         {
             _signalBus = signalBus;
+            _uiManager = uiManager;
         }
 
         public void Enter()
         {
-            Debug.Log("First Launch - показываем заставку/логотип");
-            DOVirtual.DelayedCall(2f, () => _signalBus.Fire(new GameStateChangeSignal(GameState.Tutorial)));
+            _uiManager.ShowView<ILoadingScreenView>();
+
+            _signalBus.Fire(new GameStateChangeSignal(GameState.Tutorial));
+
+            _scenesService.LoadSceneAsync(Constants.TUTORIAL_SCENE_NAME);
         }
 
-        public void Exit() { }
-        public void Update() { }
+        public void Exit()
+        {
+            Debug.Log("First Launch Hidden");
+
+            _uiManager.HideView<ILoadingScreenView>();
+        }
+
+        public void Update()
+        {
+        }
     }
 }

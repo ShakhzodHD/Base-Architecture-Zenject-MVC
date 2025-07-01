@@ -79,9 +79,6 @@ namespace Core
                 case GameEvent.ReturnToMenu:
                     ChangeState(GameState.MainMenu);
                     break;
-                case GameEvent.ExitGame:
-                    Application.Quit();
-                    break;
             }
         }
 
@@ -111,7 +108,7 @@ namespace Core
             }
             else
             {
-                ChangeState(GameState.LevelSelect);
+                ChangeState(GameState.MainMenu);
             }
         }
 

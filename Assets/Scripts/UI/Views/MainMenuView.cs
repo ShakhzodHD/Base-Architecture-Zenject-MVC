@@ -11,6 +11,8 @@ namespace UIManager
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button exitButton;
 
+        [SerializeField] private GameObject settingPanel;
+
         private SignalBus _signalBus;
 
         [Inject]
@@ -25,11 +27,9 @@ namespace UIManager
             playButton?.onClick.AddListener(() =>
                 _signalBus.Fire(new GameStateChangeSignal(GameState.LevelSelect)));
 
-            //settingsButton?.onClick.AddListener(() =>
-            //    _signalBus.Fire(new GameEventSignal(GameEvent.OpenSettings)));
+            settingsButton?.onClick.AddListener(ShowSettings);
 
-            exitButton?.onClick.AddListener(() =>
-                _signalBus.Fire(new GameEventSignal(GameEvent.ExitGame)));
+            exitButton?.onClick.AddListener(ExitGame);
         }
 
         protected override void OnShow()
@@ -50,6 +50,23 @@ namespace UIManager
         public void ShowLoadingState(bool isLoading)
         {
             throw new System.NotImplementedException();
+        }
+
+        private void ShowSettings()
+        {
+            settingPanel.SetActive(true);
+        }
+
+        private void ExitGame()
+        {
+            Application.Quit();
+        }
+
+        private void OnDestroy()
+        {
+            playButton?.onClick.RemoveAllListeners();
+            settingsButton?.onClick.RemoveAllListeners();
+            exitButton?.onClick.RemoveAllListeners();
         }
     }
 }

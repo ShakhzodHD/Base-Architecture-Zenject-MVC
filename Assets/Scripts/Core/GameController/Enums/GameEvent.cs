@@ -7,6 +7,5 @@ namespace Core
         LevelCompleted,
         LevelFailed,
         ReturnToMenu,
-        ExitGame
     }
 }
