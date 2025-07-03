@@ -1,4 +1,5 @@
 using ScenesService;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -18,8 +19,6 @@ namespace Core
         public void Enter()
         {
             Debug.Log("Tutorial Started");
-
-            CompleteTutorial();
         }
 
         public void Exit()
@@ -39,13 +38,21 @@ namespace Core
             }
         }
 
-        public void CompleteTutorial()
+        public async void CompleteTutorial()
         {
-            _uiManager.ShowView<ILoadingScreenView>();
+            try
+            {
+                _uiManager.ShowView<ILoadingScreenView>();
+                _signalBus.Fire(new GameEventSignal(GameEvent.ReturnToMenu));
+                await _scenesService.LoadSceneAsync(Constants.MENU_SCENE_NAME);
+                _uiManager.HideView<ILoadingScreenView>();
+            }
 
-            _signalBus.Fire(new GameEventSignal(GameEvent.ReturnToMenu));
-
-            _scenesService.LoadSceneAsync(Constants.MENU_SCENE_NAME);
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load scene: {ex.Message}");
+                _uiManager.HideView<ILoadingScreenView>();
+            }
         }
     }
 }

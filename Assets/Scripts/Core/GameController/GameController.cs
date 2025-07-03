@@ -7,7 +7,6 @@ namespace Core
     public class GameController : IGameController, ITickable
     {
         private readonly Dictionary<GameState, IGameStateHandler> _stateHandlers;
-        [Inject] private readonly ISaveSystem _saveSystem;
         private readonly SignalBus _signalBus;
 
         private GameState _currentState;
@@ -17,11 +16,9 @@ namespace Core
 
         public GameController(
         Dictionary<GameState, IGameStateHandler> stateHandlers,
-        ISaveSystem saveSystem,
         SignalBus signalBus)
         {
             _stateHandlers = stateHandlers;
-            _saveSystem = saveSystem;
             _signalBus = signalBus;
         }
 
@@ -30,14 +27,7 @@ namespace Core
             _signalBus.Subscribe<GameEventSignal>(OnGameEvent);
             _signalBus.Subscribe<GameStateChangeSignal>(OnStateChangeRequest);
 
-            if (_saveSystem.IsFirstLaunch())
-            {
-                ChangeState(GameState.FirstLaunch);
-            }
-            else
-            {
-                ChangeState(GameState.MainMenu);
-            }
+            ChangeState(GameState.MainMenu);
         }
 
         public void ChangeState(GameState newState)
@@ -102,19 +92,11 @@ namespace Core
 
         private void HandleGameStarted()
         {
-            if (_saveSystem.IsFirstLaunch())
-            {
-                ChangeState(GameState.Tutorial);
-            }
-            else
-            {
-                ChangeState(GameState.MainMenu);
-            }
+            ChangeState(GameState.MainMenu);
         }
 
         private void HandleTutorialCompleted()
         {
-            _saveSystem.SetFirstLaunchCompleted();
             ChangeState(GameState.MainMenu);
         }
 

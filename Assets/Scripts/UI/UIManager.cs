@@ -1,18 +1,26 @@
 using Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zenject;
 
 namespace UIManager
 {
-    public class UIManager : IUIManager
+    public class UIManager : IUIManager, IInitializable
     {
-        private readonly Dictionary<System.Type, IUIView> _views = new();
+        private readonly Dictionary<Type, IUIView> _views = new();
         private readonly List<IUIView> _activeViews = new();
+        private readonly DiContainer _container;
 
-        [Inject]
-        public void Initialize(List<IUIView> views)
+        public UIManager(DiContainer container)
         {
+            _container = container;
+        }
+
+        public void Initialize()
+        {
+            var views = _container.ResolveAll<IUIView>();
+
             foreach (var view in views)
             {
                 _views[view.GetType()] = view;

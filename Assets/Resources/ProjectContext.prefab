@@ -78,7 +78,6 @@ Transform:
   - {fileID: 9061125242574435445}
   - {fileID: 4814978124273367168}
   - {fileID: 8204139852486269369}
-  - {fileID: 2141138501817959115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6579409694499444000
@@ -97,9 +96,8 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 2631362463680024152}
   - {fileID: 5328998422890509307}
-  - {fileID: 3381323083007203109}
   - {fileID: 5890826918244567542}
-  - {fileID: 3369054477007967212}
+  - {fileID: 3381323083007203109}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
@@ -246,49 +244,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dde1d5a7d8646374094bbe6cde1935e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &8888503637364024699
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2141138501817959115}
-  - component: {fileID: 3369054477007967212}
-  m_Layer: 0
-  m_Name: SaveSystemInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2141138501817959115
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8888503637364024699}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 153018119258415533}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3369054477007967212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8888503637364024699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62c181c39326974bbb90c3531bbd2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

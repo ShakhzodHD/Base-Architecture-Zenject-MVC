@@ -17,14 +17,18 @@ namespace Core
         public void Enter()
         {
             Debug.Log("Main Menu Opened");
+
             _uiManager.ShowView<IMainMenuView>();
         }
 
         public void Exit()
         {
+            Debug.Log("Main Menu Hidden");
             _uiManager.HideView<IMainMenuView>();
         }
 
-        public void Update() { }
+        public void Update()
+        {
+        }
     }
 }

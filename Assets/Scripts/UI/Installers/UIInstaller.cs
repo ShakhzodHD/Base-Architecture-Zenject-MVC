@@ -15,26 +15,20 @@ namespace UIManager
         {
             Debug.Log("UI Install");
 
-            Container.Bind<IUIManager>().To<UIManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
 
             InstallUIViews();
         }
 
         private void InstallUIViews()
         {
-            var views = new List<IUIView>();
-
             var mainMenuView = Container.InstantiatePrefabForComponent<MainMenuView>(mainMenuViewPrefab);
             Container.Bind<MainMenuView>().FromInstance(mainMenuView);
-            Container.Bind<IMainMenuView>().FromInstance(mainMenuView);
-            views.Add(mainMenuView);
+            Container.BindInterfacesTo<MainMenuView>().FromInstance(mainMenuView);
 
             var loadingScreenView = Container.InstantiatePrefabForComponent<LoadingScreenView>(loadingScreenViewPrefab);
             Container.Bind<LoadingScreenView>().FromInstance(loadingScreenView);
-            Container.Bind<IUIView>().FromInstance(loadingScreenView);
-            views.Add(loadingScreenView);
-
-            Container.Bind<List<IUIView>>().FromInstance(views);
+            Container.BindInterfacesTo<LoadingScreenView>().FromInstance(loadingScreenView);
         }
     }
 }

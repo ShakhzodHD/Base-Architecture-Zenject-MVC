@@ -12,6 +12,8 @@ namespace ScenesService
         public event Action<string> OnSceneLoadStarted;
         public event Action<string> OnSceneLoadCompleted;
 
+        [Inject] private readonly SignalBus _signalBus;
+
         public string CurrentSceneName { get; private set; }
         public bool IsLoading { get; private set; }
 
@@ -41,9 +43,11 @@ namespace ScenesService
 
             while (!asyncLoad.isDone)
             {
+                _signalBus.Fire(new SceneLoadProgressSignal(asyncLoad.progress));
                 await Task.Yield();
             }
 
+            _signalBus.Fire(new SceneLoadProgressSignal(1f));
             CurrentSceneName = sceneName;
             IsLoading = false;
             OnSceneLoadCompleted?.Invoke(sceneName);

@@ -1,4 +1,6 @@
 using Core;
+using ScenesService;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -15,6 +17,9 @@ namespace UIManager
 
         private SignalBus _signalBus;
 
+        [Inject] private readonly IUIManager _uiManager;
+        [Inject] private readonly IScenesService _scenesService;
+
         [Inject]
         public void Initialize(SignalBus signalBus)
         {
@@ -24,8 +29,7 @@ namespace UIManager
 
         private void SetupButtons()
         {
-            playButton?.onClick.AddListener(() =>
-                _signalBus.Fire(new GameStateChangeSignal(GameState.LevelSelect)));
+            playButton?.onClick.AddListener(PlayGame);
 
             settingsButton?.onClick.AddListener(ShowSettings);
 
@@ -34,22 +38,36 @@ namespace UIManager
 
         protected override void OnShow()
         {
-            Debug.Log("Main Menu View Shown");
         }
 
         protected override void OnHide()
         {
-            Debug.Log("Main Menu View Hidden");
         }
 
         public void SetPlayerName(string name)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void ShowLoadingState(bool isLoading)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        private async void PlayGame()
+        {
+            try
+            {
+                _uiManager.ShowView<ILoadingScreenView>();
+                _signalBus.Fire(new GameStateChangeSignal(GameState.Tutorial));
+                await _scenesService.LoadSceneAsync(Constants.TUTORIAL_SCENE_NAME);
+                _uiManager.HideView<ILoadingScreenView>();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load scene: {ex.Message}");
+                _uiManager.HideView<ILoadingScreenView>();
+            }
         }
 
         private void ShowSettings()
